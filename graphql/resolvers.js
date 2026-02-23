@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Employee = require("../models/Employee");
 
 const resolvers = {
 
@@ -41,6 +42,24 @@ const resolvers = {
       } catch (error) {
         throw new Error(error.message);
       }
+    },
+
+    getAllEmployees: async () => {
+      return await Employee.find();
+    },
+
+    getEmployeeById: async (_, { id }) => {
+      const employee = await Employee.findById(id);
+      if (!employee) throw new Error("Employee not found");
+      return employee;
+    },
+
+    searchEmployees: async (_, { designation, department }) => {
+      const filter = {};
+      if (designation) filter.designation = designation;
+      if (department) filter.department = department;
+
+      return await Employee.find(filter);
     }
   },
 
@@ -78,6 +97,32 @@ const resolvers = {
       } catch (error) {
         throw new Error(error.message);
       }
+    },
+
+    addEmployee: async (_, { input }) => {
+      try {
+        const newEmployee = await Employee.create(input);
+        return newEmployee;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+
+    updateEmployee: async (_, { id, input }) => {
+      const updated = await Employee.findByIdAndUpdate(
+        id,
+        input,
+        { new: true }
+      );
+
+      if (!updated) throw new Error("Employee not found");
+      return updated;
+    },
+
+    deleteEmployee: async (_, { id }) => {
+      const deleted = await Employee.findByIdAndDelete(id);
+      if (!deleted) throw new Error("Employee not found");
+      return "Employee deleted successfully";
     }
   }
 };
