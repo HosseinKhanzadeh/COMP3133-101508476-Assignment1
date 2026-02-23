@@ -9,6 +9,12 @@ const typeDefs = gql`
     updated_at: String
   }
 
+  type AuthPayload {
+    message: String
+    token: String
+    user: User
+  }
+
   type Employee {
     _id: ID
     first_name: String
@@ -26,10 +32,11 @@ const typeDefs = gql`
 
   type Query {
     dbStatus: String
+    login(usernameOrEmail: String!, password: String!): AuthPayload
   }
 
   type Mutation {
-    placeholder: String
+    signup(username: String!, email: String!, password: String!): AuthPayload
   }
 `;
 
