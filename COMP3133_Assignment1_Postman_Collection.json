@@ -1,0 +1,118 @@
+{
+    "info": {
+        "name": "COMP3133_Assignment1_GraphQL_Collection",
+        "_postman_id": "comp3133-101508476-collection",
+        "description": "Postman collection for COMP3133 Assignment 1 - GraphQL Employee Management System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Signup",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"query\": \"mutation {\\n  signup(username: \\\"hossein\\\", email: \\\"hossein@test.com\\\", password: \\\"123456\\\") {\\n    message\\n    token\\n    user {\\n      username\\n      email\\n    }\\n  }\\n}\"}"
+                },
+                "url": {
+                    "raw": "http://localhost:4000/graphql",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000",
+                    "path": [
+                        "graphql"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"query\": \"query {\\n  login(usernameOrEmail: \\\"hossein\\\", password: \\\"123456\\\") {\\n    message\\n    token\\n  }\\n}\"}"
+                },
+                "url": {
+                    "raw": "http://localhost:4000/graphql",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000",
+                    "path": [
+                        "graphql"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Add Employee",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"query\": \"mutation {\\n  addEmployee(\\n    input: {\\n      first_name: \\\"John\\\"\\n      last_name: \\\"Doe\\\"\\n      email: \\\"john@test.com\\\"\\n      gender: \\\"Male\\\"\\n      designation: \\\"Developer\\\"\\n      salary: 5000\\n      date_of_joining: \\\"2024-01-01\\\"\\n      department: \\\"IT\\\"\\n      employee_photo: \\\"https://via.placeholder.com/150\\\"\\n    }\\n  ) {\\n    _id\\n    first_name\\n    designation\\n  }\\n}\"}"
+                },
+                "url": {
+                    "raw": "http://localhost:4000/graphql",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000",
+                    "path": [
+                        "graphql"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get All Employees",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"query\": \"query {\\n  getAllEmployees {\\n    _id\\n    first_name\\n    designation\\n  }\\n}\"}"
+                },
+                "url": {
+                    "raw": "http://localhost:4000/graphql",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000",
+                    "path": [
+                        "graphql"
+                    ]
+                }
+            }
+        }
+    ]
+}

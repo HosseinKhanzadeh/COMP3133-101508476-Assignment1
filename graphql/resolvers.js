@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Employee = require("../models/Employee");
+const cloudinary = require("../config/cloudinary");
 
 const resolvers = {
 
@@ -101,8 +102,35 @@ const resolvers = {
 
     addEmployee: async (_, { input }) => {
       try {
-        const newEmployee = await Employee.create(input);
+    
+        if (input.salary < 1000) {
+          throw new Error("Salary must be at least 1000");
+        }
+    
+        const existing = await Employee.findOne({ email: input.email });
+        if (existing) {
+          throw new Error("Employee email already exists");
+        }
+    
+        let imageUrl = input.employee_photo;
+    
+        // Upload to Cloudinary if base64 image
+        if (input.employee_photo && input.employee_photo.startsWith("data:")) {
+          const uploadResponse = await cloudinary.uploader.upload(
+            input.employee_photo,
+            { folder: "employees" }
+          );
+    
+          imageUrl = uploadResponse.secure_url;
+        }
+    
+        const newEmployee = await Employee.create({
+          ...input,
+          employee_photo: imageUrl
+        });
+    
         return newEmployee;
+    
       } catch (error) {
         throw new Error(error.message);
       }
