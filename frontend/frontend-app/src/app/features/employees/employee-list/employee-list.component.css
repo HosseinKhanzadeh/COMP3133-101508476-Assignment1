@@ -1,0 +1,31 @@
+.ems-search-card {
+  margin-bottom: 1.25rem;
+}
+
+.ems-table-card {
+  padding: 0.25rem 0.5rem 1rem;
+}
+
+.ems-loading-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.75rem 0.5rem;
+}
+
+.ems-sk-row {
+  height: 2.75rem;
+  width: 100%;
+}
+
+.ems-empty-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ems-text);
+  margin: 0 0 0.35rem;
+}
+
+.ems-empty-hint {
+  margin: 0;
+  font-size: 0.875rem;
+}

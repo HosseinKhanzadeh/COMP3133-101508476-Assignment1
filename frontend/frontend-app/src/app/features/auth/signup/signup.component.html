@@ -1,0 +1,162 @@
+<div class="ems-auth-page">
+  <div class="ems-auth-inner">
+    <div class="ems-auth-logo" aria-hidden="true">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    </div>
+    <h1 class="ems-auth-title ems-text-gradient">Create your account</h1>
+    <p class="ems-auth-subtitle">Join Employee Manager to start tracking your organization.</p>
+    <div class="ems-auth-card">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        @if (serverError(); as err) {
+          <div class="ems-alert ems-alert-error" role="alert">{{ err }}</div>
+        }
+
+        <label class="ems-label" for="su-user">Username</label>
+        <div class="ems-input-wrap">
+          <span class="ems-input-icon" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </span>
+          <input
+            id="su-user"
+            class="ems-field"
+            formControlName="username"
+            autocomplete="username"
+            placeholder="jane.doe"
+          />
+        </div>
+        <p class="ems-help-text">
+          @if (form.controls.username.touched && form.controls.username.errors?.['required']) {
+            Username is required.
+          }
+        </p>
+
+        <label class="ems-label" for="su-email">Email</label>
+        <div class="ems-input-wrap">
+          <span class="ems-input-icon" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </span>
+          <input
+            id="su-email"
+            type="email"
+            class="ems-field"
+            formControlName="email"
+            autocomplete="email"
+            placeholder="you@company.com"
+          />
+        </div>
+        <p class="ems-help-text">
+          @if (form.controls.email.touched && form.controls.email.errors?.['required']) {
+            Email is required.
+          } @else if (form.controls.email.touched && form.controls.email.errors?.['email']) {
+            Enter a valid email address.
+          }
+        </p>
+
+        <label class="ems-label" for="su-pass">Password</label>
+        <div class="ems-input-wrap">
+          <span class="ems-input-icon" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </span>
+          <input
+            id="su-pass"
+            type="password"
+            class="ems-field"
+            formControlName="password"
+            autocomplete="new-password"
+            placeholder="••••••••"
+          />
+        </div>
+        <p class="ems-help-text">
+          @if (form.controls.password.touched && form.controls.password.errors?.['required']) {
+            Password is required.
+          }
+        </p>
+
+        <label class="ems-label" for="su-pass2">Confirm password</label>
+        <div class="ems-input-wrap">
+          <span class="ems-input-icon" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </span>
+          <input
+            id="su-pass2"
+            type="password"
+            class="ems-field"
+            formControlName="confirmPassword"
+            autocomplete="new-password"
+            placeholder="••••••••"
+          />
+        </div>
+        <p class="ems-help-text">
+          @if (
+            form.controls.confirmPassword.touched && form.controls.confirmPassword.errors?.['required']
+          ) {
+            Please confirm your password.
+          } @else if (form.touched && form.errors?.['passwordMismatch']) {
+            Passwords must match.
+          }
+        </p>
+
+        <button
+          type="submit"
+          class="ems-btn-primary ems-login-submit"
+          [disabled]="submitting()"
+        >
+          {{ submitting() ? 'Creating account…' : 'Create account' }}
+        </button>
+      </form>
+      <p class="ems-auth-footer">
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>

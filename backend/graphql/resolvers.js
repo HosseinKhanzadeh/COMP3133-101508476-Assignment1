@@ -113,8 +113,7 @@ const resolvers = {
         }
     
         let imageUrl = input.employee_photo;
-    
-        // Upload to Cloudinary if base64 image
+
         if (input.employee_photo && input.employee_photo.startsWith("data:")) {
           const uploadResponse = await cloudinary.uploader.upload(
             input.employee_photo,
@@ -152,7 +151,20 @@ const resolvers = {
       if (!deleted) throw new Error("Employee not found");
       return "Employee deleted successfully";
     }
-  }
+  },
+
+  Employee: {
+    date_of_joining: (parent) => {
+      const v = parent.date_of_joining;
+      if (v == null || v === "") return null;
+      if (v instanceof Date) return v.toISOString();
+      if (typeof v === "number") return new Date(v).toISOString();
+      const s = String(v).trim();
+      if (/^\d+$/.test(s)) return new Date(Number(s)).toISOString();
+      const d = new Date(s);
+      return Number.isNaN(d.getTime()) ? s : d.toISOString();
+    },
+  },
 };
 
 module.exports = resolvers;

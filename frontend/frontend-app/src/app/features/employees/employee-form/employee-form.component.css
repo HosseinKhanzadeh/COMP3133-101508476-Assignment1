@@ -1,0 +1,78 @@
+.ems-form-page {
+  display: block;
+}
+
+.ems-form-span-2 {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 641px) {
+  .ems-form-grid .ems-form-span-2 {
+    grid-column: span 2;
+  }
+}
+
+.efs-photo-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ems-border);
+  color: var(--ems-text);
+}
+
+.ems-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.ems-upload-hint {
+  font-size: 0.8rem;
+  color: var(--ems-text-muted);
+}
+
+.ems-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ems-icon-text-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--ems-radius-sm);
+  border: 1px solid var(--ems-border);
+  background: var(--ems-bg-secondary);
+  color: var(--ems-text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.ems-icon-text-btn:hover {
+  color: var(--ems-coral);
+  border-color: rgba(224, 70, 76, 0.4);
+}
+
+.ems-icon-text-btn:focus-visible {
+  outline: 2px solid var(--ems-cyan);
+  outline-offset: 2px;
+}
+
+select.ems-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+}

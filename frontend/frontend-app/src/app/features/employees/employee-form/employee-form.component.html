@@ -1,0 +1,182 @@
+<div class="ems-page-container ems-page-container--form">
+  <header class="ems-page-header">
+    <div>
+      <h1 class="ems-page-title ems-text-gradient">
+        {{ formMode() === 'edit' ? 'Edit employee' : 'Add employee' }}
+      </h1>
+      <p class="ems-page-subtitle">
+        {{
+          formMode() === 'edit'
+            ? 'Update profile, role, and photo for this employee.'
+            : 'Create a new record with personal details, job information, and an optional photo.'
+        }}
+      </p>
+    </div>
+  </header>
+
+  @if (formMode() === 'edit' && loadExisting()) {
+    <div class="ems-card ems-card--padded" aria-busy="true">
+      <p class="ems-page-subtitle" style="margin: 0">Loading employee…</p>
+    </div>
+  } @else {
+  <form class="ems-card ems-card--padded ems-form-page" [formGroup]="form" (ngSubmit)="submit()">
+    @if (pageError(); as err) {
+      <div class="ems-alert ems-alert-error" role="alert">{{ err }}</div>
+    }
+
+    <section class="ems-form-section" aria-labelledby="sec-personal">
+      <h2 class="ems-form-section-title" id="sec-personal">Personal Information</h2>
+      <div class="ems-form-grid">
+        <div>
+          <label class="ems-label" for="ef-fn">First name</label>
+          <input id="ef-fn" class="ems-field" type="text" formControlName="firstName" />
+          <p class="ems-help-text">
+            @if (form.controls.firstName.touched && form.controls.firstName.invalid) {
+              Required.
+            }
+          </p>
+        </div>
+        <div>
+          <label class="ems-label" for="ef-ln">Last name</label>
+          <input id="ef-ln" class="ems-field" type="text" formControlName="lastName" />
+          <p class="ems-help-text">
+            @if (form.controls.lastName.touched && form.controls.lastName.invalid) {
+              Required.
+            }
+          </p>
+        </div>
+        <div class="ems-form-span-2">
+          <label class="ems-label" for="ef-em">Email</label>
+          <input id="ef-em" class="ems-field" type="email" formControlName="email" />
+          <p class="ems-help-text">
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              Valid email required.
+            }
+          </p>
+        </div>
+        <div>
+          <label class="ems-label" for="ef-gender">Gender</label>
+          <select id="ef-gender" class="ems-field" formControlName="gender">
+            <option value="">Prefer not to say</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="ems-form-section" aria-labelledby="sec-job">
+      <h2 class="ems-form-section-title" id="sec-job">Job Information</h2>
+      <div class="ems-form-grid">
+        <div>
+          <label class="ems-label" for="ef-des">Designation</label>
+          <input id="ef-des" class="ems-field" type="text" formControlName="designation" />
+          <p class="ems-help-text">
+            @if (form.controls.designation.touched && form.controls.designation.invalid) {
+              Required.
+            }
+          </p>
+        </div>
+        <div>
+          <label class="ems-label" for="ef-dep">Department</label>
+          <input id="ef-dep" class="ems-field" type="text" formControlName="department" />
+          <p class="ems-help-text">
+            @if (form.controls.department.touched && form.controls.department.invalid) {
+              Required.
+            }
+          </p>
+        </div>
+        <div>
+          <label class="ems-label" for="ef-sal">Salary</label>
+          <input id="ef-sal" class="ems-field" type="number" formControlName="salary" min="1000" />
+          <p class="ems-help-text">
+            @if (form.controls.salary.touched && form.controls.salary.invalid) {
+              Minimum 1000.
+            }
+          </p>
+        </div>
+        <div>
+          <label class="ems-label" for="ef-doj">Date of joining</label>
+          <input id="ef-doj" class="ems-field" type="date" formControlName="dateOfJoining" />
+          <p class="ems-help-text">
+            @if (form.controls.dateOfJoining.touched && form.controls.dateOfJoining.invalid) {
+              Required.
+            }
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ems-form-section" aria-labelledby="sec-photo">
+      <h2 class="efs-photo-title" id="sec-photo">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="17 8 12 3 7 8" />
+          <line x1="12" y1="3" x2="12" y2="15" />
+        </svg>
+        Profile Photo
+      </h2>
+      <div class="ems-upload-zone">
+        <input
+          type="file"
+          accept="image/*"
+          class="sr-only"
+          id="ef-photo"
+          (change)="onFileSelected($event)"
+        />
+        <label for="ef-photo" class="ems-upload-label">
+          <span class="ems-btn-secondary ems-btn-inline">Choose image</span>
+          <span class="ems-upload-hint">PNG, JPG up to a reasonable size</span>
+        </label>
+        @if (photoPreview(); as src) {
+          <div class="ems-preview-row">
+            <img [src]="src" alt="" class="ems-upload-preview" />
+            <button type="button" class="ems-icon-text-btn" (click)="clearPhoto()">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              Remove
+            </button>
+          </div>
+        }
+      </div>
+    </section>
+
+    <div class="ems-form-actions">
+      <button type="button" class="ems-btn-secondary" (click)="cancel()">Cancel</button>
+      <button
+        type="submit"
+        class="ems-btn-primary ems-btn-inline"
+        [disabled]="submitting() || loadExisting()"
+      >
+        {{
+          submitting()
+            ? formMode() === 'edit'
+              ? 'Saving…'
+              : 'Adding…'
+            : formMode() === 'edit'
+              ? 'Save changes'
+              : 'Add Employee'
+        }}
+      </button>
+    </div>
+  </form>
+  }
+</div>

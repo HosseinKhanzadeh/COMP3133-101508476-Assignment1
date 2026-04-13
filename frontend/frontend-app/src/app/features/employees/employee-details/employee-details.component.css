@@ -1,0 +1,52 @@
+.ems-detail-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ems-detail-name {
+  margin: 0 0 0.35rem;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.ems-detail-role {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ems-gold);
+}
+
+.ems-detail-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--ems-border);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.ems-back-wrap {
+  margin-top: 2rem;
+}
+
+.ems-link-muted {
+  color: var(--ems-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.ems-link-muted:hover {
+  color: var(--ems-cyan);
+}
+
+.ems-not-found {
+  text-align: center;
+  max-width: 28rem;
+  margin: 2rem auto;
+}
+
+.ems-not-found .ems-btn-primary {
+  margin-top: 1rem;
+}

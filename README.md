@@ -1,40 +1,53 @@
-# COMP3133 Assignment 1
+# Employee Management System (Assignment 2)
 
-A small GraphQL API built with Node, Express, Apollo Server, and MongoDB. It handles user signup/login and employee records (CRUD, search by designation or department). Optional photo uploads use Cloudinary.
+This project is a full-stack Employee Management System built for COMP3133.  
+It consists of a GraphQL backend (Assignment 1) and an Angular frontend (Assignment 2).
 
-## Setup
+---
 
-1. Clone the repo and install dependencies:
+## Project Structure
 
-   ```bash
-   npm install
-   ```
+Assignment-2/
+├── backend/              # Node.js + Express + Apollo GraphQL API
+├── frontend/             # Angular application (UI)
+│   └── frontend-app/
 
-2. Copy `.env` (or create it) and set your own values:
+---
 
-   - `PORT` — server port (default `4000`)
-   - `MONGODB_URI` — MongoDB connection string
-   - `JWT_SECRET` — secret for JWT signing
-   - `CLOUDINARY_*` — Cloudinary credentials (only needed for photo uploads)
+## Tech Stack
 
-3. Start the server:
+### Backend
+- Node.js
+- Express
+- Apollo Server (GraphQL)
+- MongoDB + Mongoose
 
-   ```bash
-   npm start
-   ```
+### Frontend
+- Angular
+- Apollo Angular
+- RxJS
+- Custom CSS theme
 
-   For development with auto-restart:
+---
 
-   ```bash
-   npm run dev
-   ```
+## GraphQL Endpoint
 
-The GraphQL endpoint is at `http://localhost:4000/graphql`. Use the playground there to run queries and mutations.
+http://localhost:4000/graphql
 
-## What’s included
+---
 
-- **Auth:** `signup` and `login` (username or email). Passwords are hashed with bcrypt; responses include a JWT.
-- **Employees:** List all, get by ID, add, update, delete, and search by designation or department.
-- **Photos:** Employee photo upload via Cloudinary (when configured).
+##  How to Run the Project
 
-No real secrets or connection strings are committed; keep your `.env` local and out of version control.
+### Backend
+cd backend
+npm install
+npm start
+
+### Frontend
+cd frontend/frontend-app
+npm install
+ng serve
+
+Open: http://localhost:4200
+
+---

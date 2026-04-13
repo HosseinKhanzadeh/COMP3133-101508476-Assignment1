@@ -7,6 +7,7 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 
 const app = express();
+const PORT = Number(process.env.PORT) || 4000;
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
@@ -23,13 +24,13 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app, cors: false });
 
-  const httpServer = app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT}${server.graphqlPath}`);
+  const httpServer = app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}${server.graphqlPath}`);
   });
 
   httpServer.on("error", (err) => {
     if (err.code === "EADDRINUSE") {
-      console.error(`Port ${process.env.PORT} is already in use. Free it with: netstat -ano | findstr :${process.env.PORT} then taskkill /PID <pid> /F`);
+      console.error(`Port ${PORT} is already in use. Free it with: netstat -ano | findstr :${PORT} then taskkill /PID <pid> /F`);
     }
     throw err;
   });
